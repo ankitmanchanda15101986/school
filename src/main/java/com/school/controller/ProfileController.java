@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.school.model.ProfileResponse;
-import com.school.model.StudentProfile;
-import com.school.service.impl.ProfileServiceImpl;
+import com.school.model.profile.StudentProfile;
+import com.school.service.profile.impl.ProfileServiceImpl;
 import com.school.util.ResponseType;;
 
 /**

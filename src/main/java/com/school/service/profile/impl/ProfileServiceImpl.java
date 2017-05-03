@@ -1,14 +1,14 @@
-package com.school.service.impl;
+package com.school.service.profile.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.school.dao.impl.ProfileDaoImpl;
+import com.school.dao.profile.impl.ProfileDaoImpl;
 import com.school.model.ProfileResponse;
-import com.school.model.StudentProfile;
-import com.school.service.ProfileService;
-import com.school.validate.ValidateProfile;
+import com.school.model.profile.StudentProfile;
+import com.school.service.profile.ProfileService;
+import com.school.validate.profile.ValidateProfile;
 
 /**
  * 

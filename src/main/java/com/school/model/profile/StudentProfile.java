@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.school.model;
+package com.school.model.profile;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,10 +1,10 @@
 /**
  * 
  */
-package com.school.dao;
+package com.school.dao.profile;
 
 import com.school.model.ProfileResponse;
-import com.school.model.StudentProfile;
+import com.school.model.profile.StudentProfile;
 
 /**
  * @author Manchanda

@@ -5,6 +5,8 @@ package com.school.model;
 
 import java.util.List;
 
+import com.school.model.attendance.Attendance;
+import com.school.model.profile.StudentProfile;
 import com.school.util.GenericErrors;
 import com.school.util.ResponseType;
 
@@ -20,6 +22,19 @@ public class ProfileResponse {
 	private List<StudentProfile> studentProfileList;
 	private List<StudentProfile> teacherProfileList;
 	private List<GenericErrors> errors;
+	private List<Attendance> attendanceList;
+	/**
+	 * @return the attendanceList
+	 */
+	public List<Attendance> getAttendanceList() {
+		return attendanceList;
+	}
+	/**
+	 * @param attendanceList the attendanceList to set
+	 */
+	public void setAttendanceList(List<Attendance> attendanceList) {
+		this.attendanceList = attendanceList;
+	}
 	/**
 	 * @return the errors
 	 */

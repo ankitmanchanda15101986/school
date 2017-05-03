@@ -1,13 +1,10 @@
 /**
  * 
  */
-package com.school.dao.crud;
+package com.school.dao.profile.crud;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-
-import com.school.model.ParentLogin;
-import com.school.model.StudentProfile;
+import com.school.model.profile.ParentLogin;
 
 /**
  * @author Manchanda

@@ -1,4 +1,4 @@
-package com.school.dao.impl;
+package com.school.dao.profile.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import com.school.dao.ProfileDao;
-import com.school.dao.crud.ParentLoginOperationCrudRepository;
-import com.school.dao.crud.ParentProfileOperationCrudRepository;
+import com.school.dao.profile.ProfileDao;
+import com.school.dao.profile.crud.ParentLoginOperationCrudRepository;
+import com.school.dao.profile.crud.ParentProfileOperationCrudRepository;
 import com.school.model.ProfileResponse;
-import com.school.model.StudentProfile;
-import com.school.util.ProfileHelper;
+import com.school.model.profile.StudentProfile;
+import com.school.util.Helper;
 import com.school.util.ResponseType;
 
 /**
@@ -31,7 +31,7 @@ public class ProfileDaoImpl implements ProfileDao {
 	private ParentLoginOperationCrudRepository loginRepository;
 	
 	@Autowired
-	private ProfileHelper helper;
+	private Helper helper;
 	
 	@Override
 	public ProfileResponse createNewRecord(StudentProfile profile) {

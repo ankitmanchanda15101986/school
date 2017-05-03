@@ -1,7 +1,7 @@
-package com.school.service;
+package com.school.service.profile;
 
 import com.school.model.ProfileResponse;
-import com.school.model.StudentProfile;
+import com.school.model.profile.StudentProfile;
 
 public interface ProfileService {
 

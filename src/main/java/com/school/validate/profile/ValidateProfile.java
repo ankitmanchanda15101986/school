@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.school.validate;
+package com.school.validate.profile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.school.model.ProfileResponse;
-import com.school.model.StudentProfile;
+import com.school.model.profile.StudentProfile;
 import com.school.util.Fields;
 import com.school.util.GenericErrors;
 
