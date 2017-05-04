@@ -16,5 +16,7 @@ public interface AttendanceService {
 	
 	public ProfileResponse getAttendanceBasedOnMonth(int month, int year, int enrollmentId);
 	
-	public ProfileResponse markAttendance(int enrollmentId);
+	public ProfileResponse markAttendance(int enrollmentId, String remarks);
+	
+	public ProfileResponse updateAttendanceRemark(int enrollmentId, Date date, String remarks);
 }

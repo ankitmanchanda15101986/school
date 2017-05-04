@@ -26,11 +26,28 @@ public class Attendance {
 	
 	private Date fromDate;
 	
-	@Column(name="Attendance_DATE")
+	@Column(name="DATE")
 	private Date attendanceDate;
 	
-	@Column(name="Attendance_STATUS")
+	@Column(name="STATUS")
 	private String attendanceStatus;
+	
+	@Column(name="REMARKS")
+	private String remarks;
+
+	/**
+	 * @return the remarks
+	 */
+	public String getRemarks() {
+		return remarks;
+	}
+
+	/**
+	 * @param remarks the remarks to set
+	 */
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 
 	/**
 	 * @return the toDate

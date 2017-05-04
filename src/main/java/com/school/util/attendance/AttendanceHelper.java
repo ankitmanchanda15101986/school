@@ -6,24 +6,34 @@ package com.school.util.attendance;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
 import com.school.model.attendance.Attendance;
 
 /**
  * @author Manchanda
  *
  */
+@Component
 public class AttendanceHelper {
 	
-	public Attendance markAttendance(int enrollmentId) {
+	public Attendance markAttendance(int enrollmentId, String remarks, Date date) {
 		Attendance attendance = new Attendance();
 		attendance.setEnrollmentId(enrollmentId);
-		attendance.setAttendanceDate(new Date());
+		if(date != null) {
+			attendance.setAttendanceDate(date);
+		} else {
+			attendance.setAttendanceDate(new Date());
+		}
 		attendance.setAttendanceStatus(AttendanceStatus.Absent.toString());
+		attendance.setRemarks(remarks);
 		return attendance;
 	}
 	
-	public Attendance convertData(int month, int year) {
+	@SuppressWarnings("deprecation")
+	public Attendance convertData(int month, int year, int enrollmentId) {
 		Attendance attendance = new Attendance();
+		attendance.setEnrollmentId(enrollmentId);
 		Date fromDate = new Date();
 		fromDate.setMonth(month);
 		fromDate.setYear(year);

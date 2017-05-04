@@ -17,7 +17,7 @@ import com.school.model.attendance.Attendance;
  */
 public interface AttendanceOperationCrudRepository extends CrudRepository<Attendance, Integer> {
 
-	@Query("from Attendance where enrollmentId=:enrollmentId and  Attendance_DATE >= :toDate and Attendance_DATE <=:fromDate ")
+	@Query("from Attendance where enrollmentId=:enrollmentId and  DATE >= :toDate and DATE <=:fromDate ")
 	public List<Attendance> getAttendanceBasedOnSearch(@Param("toDate") Date toDate, 
 			@Param("fromDate") Date fromDate, @Param("enrollmentId") int enrollmentId);	
 }

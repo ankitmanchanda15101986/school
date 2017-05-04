@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.school.dao.attendance.AttendanceDao;
 import com.school.dao.attendance.crud.AttendanceOperationCrudRepository;
@@ -19,6 +20,7 @@ import com.school.util.Helper;
  * @author Manchanda
  *
  */
+@Repository
 public class AttendanceDaoImpl implements AttendanceDao {
 
 	@Autowired
@@ -44,7 +46,7 @@ public class AttendanceDaoImpl implements AttendanceDao {
 		List<Attendance> attendanceList = new ArrayList<Attendance>();
 		attendance = repository.save(attendance);
 		attendanceList.add(attendance);
-		ProfileResponse response = helper.convertResultToProfileResponseForAttendance(attendanceList, "get");
+		ProfileResponse response = helper.convertResultToProfileResponseForAttendance(attendanceList, "mark");
 		return response;
 	}
 
