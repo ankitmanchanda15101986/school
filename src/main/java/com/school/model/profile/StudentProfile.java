@@ -3,6 +3,8 @@
  */
 package com.school.model.profile;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -30,7 +32,7 @@ public class StudentProfile {
 	private String lastName;
 	
 	@Column(name="STUDENT_DOB")
-	private String studentDOB;
+	private Date studentDOB;
 	
 	@Column(name="AADHAR_NUMBER")
 	private String aadharNumber;
@@ -39,7 +41,7 @@ public class StudentProfile {
 	private String mothersName;
 	
 	@Column(name="MOTHERS_DOB")
-	private String mothersDOB;
+	private Date mothersDOB;
 	
 	@Column(name="MOTHERS_AADHAR_NUMBER")
 	private String mothersAadharNumber;
@@ -51,7 +53,7 @@ public class StudentProfile {
 	private String fathersName;
 	
 	@Column(name="FATHERS_DOB")
-	private String fathersDOB;
+	private Date fathersDOB;
 	
 	@Column(name="FATHERS_AADHAR_NUMBER")
 	private String fathersAadharNumber;
@@ -89,13 +91,13 @@ public class StudentProfile {
 	/**
 	 * @return the studentDOB
 	 */
-	public String getStudentDOB() {
+	public Date getStudentDOB() {
 		return studentDOB;
 	}
 	/**
 	 * @param studentDOB the studentDOB to set
 	 */
-	public void setStudentDOB(String studentDOB) {
+	public void setStudentDOB(Date studentDOB) {
 		this.studentDOB = studentDOB;
 	}
 	/**
@@ -113,13 +115,13 @@ public class StudentProfile {
 	/**
 	 * @return the mothersDOB
 	 */
-	public String getMothersDOB() {
+	public Date getMothersDOB() {
 		return mothersDOB;
 	}
 	/**
 	 * @param mothersDOB the mothersDOB to set
 	 */
-	public void setMothersDOB(String mothersDOB) {
+	public void setMothersDOB(Date mothersDOB) {
 		this.mothersDOB = mothersDOB;
 	}
 	/**
@@ -149,13 +151,13 @@ public class StudentProfile {
 	/**
 	 * @return the fathersDOB
 	 */
-	public String getFathersDOB() {
+	public Date getFathersDOB() {
 		return fathersDOB;
 	}
 	/**
 	 * @param fathersDOB the fathersDOB to set
 	 */
-	public void setFathersDOB(String fathersDOB) {
+	public void setFathersDOB(Date fathersDOB) {
 		this.fathersDOB = fathersDOB;
 	}
 	/**

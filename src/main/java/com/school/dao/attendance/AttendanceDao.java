@@ -2,10 +2,7 @@
  * 
  */
 package com.school.dao.attendance;
-
-import java.util.Date;
-
-import com.school.model.ProfileResponse;
+import java.util.List;
 import com.school.model.attendance.Attendance;
 
 /**
@@ -14,7 +11,7 @@ import com.school.model.attendance.Attendance;
  */
 public interface AttendanceDao {
 
-	public ProfileResponse getAttendanceBasedOnSearchCriteria(Date toDate, Date fromDate, int enrollmentId);
+	public List<Attendance> getAttendanceBasedOnSearchCriteria(Attendance attendance) throws Exception;
 	
-	public ProfileResponse markAttendance(Attendance attendance);
+	public List<Attendance> markAttendance(Attendance attendance) throws Exception;
 }

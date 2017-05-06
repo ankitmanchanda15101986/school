@@ -3,7 +3,8 @@
  */
 package com.school.dao.profile;
 
-import com.school.model.ProfileResponse;
+import java.util.List;
+
 import com.school.model.profile.StudentProfile;
 
 /**
@@ -12,11 +13,9 @@ import com.school.model.profile.StudentProfile;
  */
 public interface ProfileDao {
 
-	public ProfileResponse createNewRecord(StudentProfile profile);
+	public List<StudentProfile> createNewRecord(StudentProfile profile)  throws Exception;
 	
-	public ProfileResponse viewRecord(Integer enrollmentId);
-	
-	public ProfileResponse viewRecord(String userName);
-	
-	public ProfileResponse updateExistingRecord(StudentProfile profile);
+	public List<StudentProfile> viewRecord(Integer enrollmentId, String userName)  throws Exception;
+		
+	public List<StudentProfile> updateExistingRecord(StudentProfile profile)  throws Exception;
 }

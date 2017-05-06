@@ -16,6 +16,9 @@ import com.school.model.profile.StudentProfile;
  */
 public interface ParentProfileOperationCrudRepository extends CrudRepository<StudentProfile, Integer> {
 
+	@Query("from StudentProfile where ENROLLMENT_ID=:enrollmentId and USER_NAME=:userName")
+	public List<StudentProfile> retrieveStudentProfiles(@Param("enrollmentId") Integer enrollmentId, @Param("userName") String userName);
+	
 	@Query("from StudentProfile where ENROLLMENT_ID=:enrollmentId")
 	public List<StudentProfile> retrieveStudentProfiles(@Param("enrollmentId") Integer enrollmentId);
 	

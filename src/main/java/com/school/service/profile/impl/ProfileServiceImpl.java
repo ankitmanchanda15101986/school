@@ -1,5 +1,7 @@
 package com.school.service.profile.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -8,6 +10,7 @@ import com.school.dao.profile.impl.ProfileDaoImpl;
 import com.school.model.ProfileResponse;
 import com.school.model.profile.StudentProfile;
 import com.school.service.profile.ProfileService;
+import com.school.util.profile.ProfileHelper;
 import com.school.validate.profile.ValidateProfile;
 
 /**
@@ -17,68 +20,83 @@ import com.school.validate.profile.ValidateProfile;
  */
 @Service
 public class ProfileServiceImpl implements ProfileService {
-	
+
 	@Autowired
-	private ProfileDaoImpl dao;	
-	
+	private ProfileDaoImpl dao;
+
 	@Autowired
 	private ValidateProfile validateProfile;
-	
+
+	@Autowired
+	private ProfileHelper helper;
+
 	/**
 	 * 
 	 */
 	@Override
 	public ProfileResponse createStudentProfile(StudentProfile profile) {
-		ProfileResponse validateResponse = validateProfile.validateCreateProfile(profile);
-		if(validateResponse == null ) {
-			return null;
-		} else if(validateResponse != null && validateResponse.getErrors().size()>0) {
-			return validateResponse;
-		} 
-		ProfileResponse response = dao.createNewRecord(profile);
-		return response;
-	}
-	
-	/**
-	 * 
-	 */
-	@Override
-	public ProfileResponse viewStudentProfile(Integer enrollmentId) {
-		if(enrollmentId == null) {
-			return null;
+		ProfileResponse response = validateProfile.validateCreateProfile(profile);
+		List<StudentProfile> studentList = null;
+		if (response != null && response.getErrors().size() == 0) {
+			try {
+				studentList = dao.createNewRecord(profile);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			response = helper.convertResultToProfileResponseForStudent(studentList, "create");
 		}
-		ProfileResponse response = dao.viewRecord(enrollmentId);
-		return response;
-	}
-	
-	/**
-	 * 
-	 */
-	@Override
-	public ProfileResponse viewStudentProfile(String userName) {
-		if(StringUtils.isEmpty(userName)) {
-			return null;
-		}
-		ProfileResponse response = dao.viewRecord(userName);
 		return response;
 	}
 
-	
+	/**
+	 * 
+	 */
+	@Override
+	public ProfileResponse viewStudentProfile(String userName, Integer enrollmentId) {
+		ProfileResponse response = new ProfileResponse();
+		List<StudentProfile> studentList = null;
+		if (enrollmentId == null && StringUtils.isEmpty(userName)) {
+			response.setCode("400");
+			response.setMessage("Invalid Parameter username or enrollmentId is mandatory field");
+		} else {
+			try {
+				if (enrollmentId != null && !StringUtils.isEmpty(userName)) {
+					studentList = dao.viewRecord(enrollmentId, userName);
+				} else if (enrollmentId == null && !StringUtils.isEmpty(userName)) {
+					studentList = dao.viewRecord(null, userName);
+				} else if (enrollmentId != null && StringUtils.isEmpty(userName)) {
+					studentList = dao.viewRecord(enrollmentId, null);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			response = helper.convertResultToProfileResponseForStudent(studentList, "view");
+		}
+
+		return response;
+	}
+
 	/**
 	 * 
 	 */
 	@Override
 	public ProfileResponse updateStudentProfile(StudentProfile profile) {
-		ProfileResponse validateResponse = validateProfile.validateCreateProfile(profile);
-		if(validateResponse == null ) {
-			return null;
-		} else if(validateResponse != null && validateResponse.getErrors().size()>0) {
-			return validateResponse;
+		ProfileResponse response = validateProfile.validateCreateProfile(profile);
+		List<StudentProfile> studentList = null;
+		if(response != null && response.getErrors().size() == 0) {
+			try {
+				studentList = dao.updateExistingRecord(profile);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			response = helper.convertResultToProfileResponseForStudent(studentList, "update");
 		} 
-		ProfileResponse response = dao.updateExistingRecord(profile);
 		return response;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -86,6 +104,4 @@ public class ProfileServiceImpl implements ProfileService {
 	public ProfileResponse deleteStudentProfile(Integer enrollmentId, boolean disableFlag) {
 		return null;
 	}
-
-	
 }

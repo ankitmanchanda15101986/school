@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.school.util.attendance.AttendanceStatus;
-
 /**
  * 
  * @author Manchanda

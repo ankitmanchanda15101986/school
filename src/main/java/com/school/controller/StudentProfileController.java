@@ -4,6 +4,7 @@
 package com.school.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,16 +23,14 @@ import com.school.util.ResponseType;;
  *
  */
 @RestController
-public class ProfileController {
+public class StudentProfileController {
 
 	@Autowired
 	private ProfileServiceImpl service;
-
 	
+		
 	/**
-	 * This method will create new student record into database.
-	 * @param profile
-	 * @return
+	 * This operation is only for admin user. (Admin)
 	 */
 	@RequestMapping(value="/student/create", method=RequestMethod.POST)
 	public ProfileResponse createNewStudent(@RequestBody StudentProfile profile) {
@@ -41,32 +40,17 @@ public class ProfileController {
 	}
 	
 	/**
-	 * This method will be called when user wanted to retrieve records of student.
-	 * @param enrollmentId
-	 * @return
+	 * Parent can select child and view there profile. (Admin + Parent + Teacher)
 	 */
 	@RequestMapping(value="/student/view", method=RequestMethod.GET)
-	public ProfileResponse viewStudentDetailsBasedOnEnrollmentId(@RequestParam(value="enrollmentId", required=false) Integer enrollmentId, 
-			@RequestParam(name="userName", required=false) String userName) {
-		if(enrollmentId==null && !StringUtils.isEmpty(userName)) {
-			ProfileResponse response = service.viewStudentProfile(userName);
-			return response;
-		} else if(enrollmentId!=null && StringUtils.isEmpty(userName)) {
-			ProfileResponse response = service.viewStudentProfile(enrollmentId);
-			return response;
-		} 
-		ProfileResponse response = new ProfileResponse();
-		response.setCode("400");
-		response.setMessage("Either EnrollmentId or Username is mandatory");
-		response.setType(ResponseType.ERROR);
-		return response;
-		
+	public ProfileResponse viewStudentDetailsBasedOnEnrollmentId(@RequestParam(value="enrollmentId", required=false) Integer enrollmentId,
+			@RequestParam(value="userName", required=false) String userName) {
+			ProfileResponse response = service.viewStudentProfile(userName, enrollmentId);
+			return response;		
 	}
 	
 	/**
-	 * This method will take care of updating student record.
-	 * @param profile
-	 * @return
+	 * Parent can update there profile data. (Admin + Parent)
 	 */
 	@RequestMapping(value="/student/update", method=RequestMethod.PUT)
 	public ProfileResponse updateStudentDetails(@RequestBody StudentProfile profile) {
@@ -76,10 +60,7 @@ public class ProfileController {
 	}
 
 	/**
-	 * This method will delete/disable student from database
-	 * @param enrollmentId
-	 * @param disable
-	 * @return StudentProfile
+	 * This operation is only for admin user. (Admin)
 	 */
 	@RequestMapping(value="/student/delete/{enrollmentId}/{disable}", method=RequestMethod.GET)
 	public ProfileResponse deleteStudentDetails(@PathVariable(name="enrollmentId") Integer enrollmentId,

@@ -3,6 +3,9 @@
  */
 package com.school.validate.profile;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +23,8 @@ import com.school.util.GenericErrors;
  */
 @Component
 public class ValidateProfile {
+	
+	final static String dateFormat = "dd-MM-yyyy";
 
 	public ProfileResponse validateCreateProfile(StudentProfile profile) {
 		ProfileResponse validateResult = new ProfileResponse();
@@ -67,7 +72,7 @@ public class ValidateProfile {
 				errors.setErrorMessage("Invalid Fathers Aadhar Number");
 				errorsList.add(errors);
 			}
-			if(StringUtils.isEmpty(profile.getFathersDOB())) {
+			if(profile.getFathersDOB() == null || !checkDateFormat(profile.getFathersDOB().toString())) {
 				errors .setFieldName(Fields.FathersDOB.toString());
 				errors.setErrorMessage("Invalid Fathers DOB");
 				errorsList.add(errors);
@@ -102,7 +107,7 @@ public class ValidateProfile {
 				errors.setErrorMessage("Invalid Mothers Aadhar Number");
 				errorsList.add(errors);
 			}
-			if(StringUtils.isEmpty(profile.getMothersDOB())) {
+			if(profile.getMothersDOB() == null || !checkDateFormat(profile.getMothersDOB().toString())) {
 				errors .setFieldName(Fields.MothersDOB.toString());
 				errors.setErrorMessage("Invalid Mothers DOB");
 				errorsList.add(errors);
@@ -132,7 +137,7 @@ public class ValidateProfile {
 				errors.setErrorMessage("Invalid State");
 				errorsList.add(errors);
 			}
-			if(StringUtils.isEmpty(profile.getStudentDOB())) {
+			if(profile.getStudentDOB()  == null || !checkDateFormat(profile.getMothersDOB().toString())) {
 				errors .setFieldName(Fields.StudentDOB.toString());
 				errors.setErrorMessage("Invalid Student DOB");
 				errorsList.add(errors);
@@ -147,6 +152,19 @@ public class ValidateProfile {
 		}
 		validateResult.setErrors(errorsList);
 		return validateResult;
+		
+	}
+	
+	public boolean checkDateFormat(String date) {
+		try {
+			DateFormat format = new SimpleDateFormat(dateFormat);
+			format.setLenient(false);
+			format.parse(date);
+			return true;
+		} catch (ParseException e) {
+			return false;
+			
+		}
 		
 	}
 }

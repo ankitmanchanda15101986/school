@@ -5,9 +5,11 @@ package com.school.util.attendance;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.school.model.ProfileResponse;
 import com.school.model.attendance.Attendance;
 
 /**
@@ -32,6 +34,13 @@ public class AttendanceHelper {
 	
 	@SuppressWarnings("deprecation")
 	public Attendance convertData(int month, int year, int enrollmentId) {
+		Date date = new Date();
+		if(month ==0) {
+			month = date.getMonth();
+		}
+		if(year ==0) {
+			year = date.getYear();
+		}
 		Attendance attendance = new Attendance();
 		attendance.setEnrollmentId(enrollmentId);
 		Date fromDate = new Date();
@@ -43,6 +52,22 @@ public class AttendanceHelper {
 		toDate.setMonth(month);
 		toDate.setYear(year);
 		toDate.setDate(getLastDayOfMonth(month, year));
+		attendance.setToDate(toDate);
+		attendance.setFromDate(fromDate);
+		return attendance;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public Attendance convertDateToAttendance(Date toDate, Date fromDate, int enrollmentId) {
+		if(toDate == null) {
+			toDate = new Date();
+		}
+		if(fromDate ==null) {
+			Date date = new Date();
+			date.setDate(1);
+		}
+		Attendance attendance = new Attendance();
+		attendance.setEnrollmentId(enrollmentId);
 		attendance.setToDate(toDate);
 		attendance.setFromDate(fromDate);
 		return attendance;
@@ -61,6 +86,29 @@ public class AttendanceHelper {
 		calendar.add(Calendar.DAY_OF_MONTH, numOfDaysInMonth-1);
 		System.out.println("Last Day of month: " + calendar.getTime());
 		return numOfDaysInMonth;
+	}
+	
+	public ProfileResponse convertResultToProfileResponseForAttendance(List<Attendance> resultData,
+			String operationName) {
+		ProfileResponse profileResponse = new ProfileResponse();
+		if (resultData != null && resultData.size() > 0) {
+			profileResponse.setAttendanceList(resultData);
+			profileResponse.setCode("200");
+			if (operationName.equalsIgnoreCase("get")) {
+				profileResponse.setMessage("Attendance Retrieved Successfully");
+			} else if (operationName.equalsIgnoreCase("mark")) {
+				profileResponse.setMessage("Attendance Marked Successfully");
+			}
+			
+		} else {
+			profileResponse.setCode("400");
+			if (operationName.equalsIgnoreCase("get")) {
+				profileResponse.setMessage("Error While Retrieving Attendance");
+			} else if (operationName.equalsIgnoreCase("mark")) {
+				profileResponse.setMessage("Error While Marking Attendance ");
+			} 
+		}
+		return profileResponse;
 	}
 
 }
