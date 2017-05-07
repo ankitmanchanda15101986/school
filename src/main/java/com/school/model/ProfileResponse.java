@@ -5,12 +5,10 @@ package com.school.model;
 
 import java.util.List;
 
-import javax.security.auth.Subject;
-
 import com.school.model.attendance.Attendance;
 import com.school.model.profile.StudentProfile;
-import com.school.model.results.Result;
 import com.school.model.results.ResultResponse;
+import com.school.model.results.SubjectAssignationResponse;
 import com.school.util.GenericErrors;
 import com.school.util.ResponseType;
 
@@ -28,6 +26,19 @@ public class ProfileResponse {
 	private List<GenericErrors> errors;
 	private List<Attendance> attendanceList;
 	private List<ResultResponse> studentResult;
+	private List<SubjectAssignationResponse> assignedSubject;
+	/**
+	 * @return the assignedSubject
+	 */
+	public List<SubjectAssignationResponse> getAssignedSubject() {
+		return assignedSubject;
+	}
+	/**
+	 * @param assignedSubject the assignedSubject to set
+	 */
+	public void setAssignedSubject(List<SubjectAssignationResponse> assignedSubject) {
+		this.assignedSubject = assignedSubject;
+	}
 	/**
 	 * @return the studentResult
 	 */

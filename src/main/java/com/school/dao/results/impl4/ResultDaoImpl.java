@@ -13,8 +13,10 @@ import org.springframework.stereotype.Repository;
 
 import com.school.dao.results.ResultDao;
 import com.school.dao.results.crud.ResultCrudRepository;
+import com.school.dao.results.crud.SubjectAssignationCrudRepository;
 import com.school.dao.results.crud.SubjectsCrudRepository;
 import com.school.model.results.Result;
+import com.school.model.results.SubjectAssignationRequest;
 import com.school.model.results.Subjects;
 
 /**
@@ -29,6 +31,9 @@ public class ResultDaoImpl implements ResultDao {
 	
 	@Autowired
 	private ResultCrudRepository resultRepository;
+	
+	@Autowired
+	private SubjectAssignationCrudRepository subjectAssignationRepository;
 	
 	
 	/* (non-Javadoc)
@@ -63,6 +68,19 @@ public class ResultDaoImpl implements ResultDao {
 			resultList.add(result);
 		}
 		return resultList;
+	}
+
+
+	@Override
+	public SubjectAssignationRequest assignSubjects(SubjectAssignationRequest request) throws Exception {
+		request = subjectAssignationRepository.save(request);
+		return request;
+	}
+
+
+	@Override
+	public SubjectAssignationRequest retrieveSubject(Integer enrollmentId) throws Exception {
+		return subjectAssignationRepository.retrieveSubjects(enrollmentId);
 	}
 
 }

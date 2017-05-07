@@ -65,5 +65,4 @@ public class StudentProfileController {
 		return response;
 		
 	}
-	
 }

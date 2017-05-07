@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.school.model.results.Result;
+import com.school.model.results.SubjectAssignationRequest;
 import com.school.model.results.Subjects;
 
 /**
@@ -20,4 +21,9 @@ public interface ResultDao {
 	public List<Result> getStudentResult(Result result) throws Exception;
 	
 	public List<Result> insertOrUpdateStudentResult(List<Result> result) throws Exception;
+	
+	public SubjectAssignationRequest assignSubjects(SubjectAssignationRequest request) throws Exception;
+	
+	public SubjectAssignationRequest retrieveSubject(Integer enrollmentId) throws Exception;
+	
 }

@@ -4,6 +4,7 @@
 package com.school.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.school.model.ProfileResponse;
 import com.school.model.results.Result;
 import com.school.model.results.ResultRequest;
+import com.school.model.results.SubjectAssignationRequest;
 import com.school.service.results.impl.ResultServiceImpl;
 import com.school.util.results.ResultHelper;
 
@@ -57,5 +59,27 @@ public class ResultsController {
 		ProfileResponse response = service.insertOrUpdateStudentResult(request);
 		return response;
 		
+	}
+	
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/assignSubjects", method=RequestMethod.POST)
+	public ProfileResponse assignSubjects(@RequestBody SubjectAssignationRequest request) {
+		ProfileResponse response = service.assignSubjects(request);
+		return response;
+	}
+	
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/retrieveSubjects/{enrollmentId}", method=RequestMethod.GET)
+	public ProfileResponse retrieveSubjects(@PathVariable("enrollmentId") int enrollmentId) {
+		ProfileResponse response = service.retrieveSubjects(enrollmentId);
+		return response;
 	}
 }

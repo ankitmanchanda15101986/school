@@ -11,6 +11,8 @@ import org.springframework.util.StringUtils;
 
 import com.school.model.ProfileResponse;
 import com.school.model.results.Result;
+import com.school.model.results.SubjectAssignationRequest;
+import com.school.model.results.Subjects;
 import com.school.util.Fields;
 import com.school.util.GenericErrors;
 
@@ -64,6 +66,25 @@ public class ValidateResult {
 			if(StringUtils.isEmpty(result.getClassStandard())) {
 				errors .setFieldName(Fields.Class.toString());
 				errors.setErrorMessage("Class is mandatory field");
+				errorsList.add(errors);
+			}
+		}
+		return response;
+	}
+	
+	public ProfileResponse validateSubjects(SubjectAssignationRequest request) {
+		ProfileResponse response = new ProfileResponse();
+		List<GenericErrors> errorsList = new ArrayList<GenericErrors>();
+		GenericErrors errors = new GenericErrors();
+		if(request != null) {
+			if(request.getEnrollmentId() == null) {
+				errors .setFieldName(Fields.EnrollmentId.toString());
+				errors.setErrorMessage("Invalid Enrollment Id");
+				errorsList.add(errors);
+			}
+			if(StringUtils.isEmpty(request.getSubjectCode())) {
+				errors .setFieldName(Fields.SubjectCode.toString());
+				errors.setErrorMessage("Subject Code cannot be empty");
 				errorsList.add(errors);
 			}
 		}

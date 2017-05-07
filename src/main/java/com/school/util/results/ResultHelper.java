@@ -8,10 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.school.model.ProfileResponse;
 import com.school.model.results.Result;
 import com.school.model.results.ResultResponse;
+import com.school.model.results.SubjectAssignationRequest;
+import com.school.model.results.SubjectAssignationResponse;
 import com.school.model.results.Subjects;
 import com.school.model.results.SubjectsRelatedResults;
 
@@ -69,4 +72,30 @@ public class ResultHelper {
 		response.setStudentResult(finalResultList);
 		return response;
 	}
+	
+	
+	public ProfileResponse prepareFinalResult(SubjectAssignationRequest result, Map<Integer, Subjects> map) {
+		ProfileResponse response = new ProfileResponse();
+		List<SubjectAssignationResponse> subAssignationResponse = new ArrayList<SubjectAssignationResponse>();
+		List<Subjects> subList = new ArrayList<Subjects>();
+		SubjectAssignationResponse subjectAssignationResponse = new SubjectAssignationResponse();
+		if(result != null && StringUtils.isEmpty(result.getSubjectCode())) {
+			subjectAssignationResponse.setEnrollmentId(result.getEnrollmentId());
+			for (String value : result.getSubjectCode().split(",")) {
+				if(map != null && !map.isEmpty()) {
+					Subjects sub = map.get(value);
+					subList.add(sub);
+				}
+			}
+			subjectAssignationResponse.setSubjectList(subList);
+			response.setCode("200");
+			response.setMessage("Operation Successful");
+			response.setAssignedSubject(subAssignationResponse);
+		} else {
+			response.setCode("400");
+			response.setMessage("Caught some error please contact administrator");
+		}
+		return response;
+	}
+
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 import com.school.model.ProfileResponse;
 import com.school.model.results.Result;
 import com.school.model.results.ResultRequest;
+import com.school.model.results.SubjectAssignationRequest;
 import com.school.model.results.Subjects;
 
 /**
@@ -20,4 +21,8 @@ public interface ResultService {
 	public ProfileResponse getStudentResult(Result result);
 	
 	public ProfileResponse insertOrUpdateStudentResult(ResultRequest result);
+	
+	public ProfileResponse assignSubjects(SubjectAssignationRequest request);
+	
+	public ProfileResponse retrieveSubjects(Integer enrollmentId);
 }

@@ -13,6 +13,7 @@ import com.school.dao.results.impl4.ResultDaoImpl;
 import com.school.model.ProfileResponse;
 import com.school.model.results.Result;
 import com.school.model.results.ResultRequest;
+import com.school.model.results.SubjectAssignationRequest;
 import com.school.model.results.Subjects;
 import com.school.service.results.ResultService;
 import com.school.util.results.ResultHelper;
@@ -90,6 +91,43 @@ public class ResultServiceImpl implements ResultService {
 			response.setCode("400");
 			response.setMessage("Invalid Request");
 		}
+		return response;
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public ProfileResponse assignSubjects(SubjectAssignationRequest request) {
+		ProfileResponse response = new ProfileResponse();
+		if(request != null) {
+			response = validate.validateSubjects(request);
+			if(response!= null && !response.getErrors().isEmpty()) {
+				try {
+					request = dao.assignSubjects(request);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+		} 
+		response = helper.prepareFinalResult(request, getAllSubjects());
+		return response;
+	}
+
+	@Override
+	public ProfileResponse retrieveSubjects(Integer enrollmentId) {
+		ProfileResponse response = new ProfileResponse();
+		SubjectAssignationRequest subjectAssign = null;
+		if(enrollmentId != null) {
+			try {
+				subjectAssign = dao.retrieveSubject(enrollmentId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		response = helper.prepareFinalResult(subjectAssign, getAllSubjects());
 		return response;
 	}
 
