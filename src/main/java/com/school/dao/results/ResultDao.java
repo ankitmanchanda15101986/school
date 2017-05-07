@@ -14,7 +14,10 @@ import com.school.model.results.Subjects;
  *
  */
 public interface ResultDao {
+	
 	public Map<Integer, Subjects> retrieveSubjectList() throws Exception;
 	
 	public List<Result> getStudentResult(Result result) throws Exception;
+	
+	public List<Result> insertOrUpdateStudentResult(List<Result> result) throws Exception;
 }

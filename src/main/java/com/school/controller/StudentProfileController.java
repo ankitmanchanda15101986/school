@@ -4,19 +4,15 @@
 package com.school.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.school.model.ProfileResponse;
 import com.school.model.profile.StudentProfile;
-import com.school.service.profile.impl.ProfileServiceImpl;
-import com.school.util.ResponseType;;
+import com.school.service.profile.impl.ProfileServiceImpl;;
 
 /**
  * @author Manchanda

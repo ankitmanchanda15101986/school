@@ -21,6 +21,15 @@ import com.school.model.results.SubjectsRelatedResults;
  */
 @Component
 public class ResultHelper {
+	
+	public Result convertToResult(int enrollmentId, String examType, String resultType, String classStandard) {
+		Result result = new Result();
+		result.setEnrollmentId(enrollmentId);
+		result.setExamType(examType);
+		result.setType(resultType);
+		result.setClassStandard(classStandard);
+		return result;
+	}
 
 	public ProfileResponse prepareFinalResult(List<Result> resultList, Map<Integer, Subjects> map) {
 		ProfileResponse response = new ProfileResponse();
@@ -48,14 +57,14 @@ public class ResultHelper {
 		if(resultResponse != null && resultResponse.getResult() != null) {
 			response.setCode("200");
 			if(resultResponse.getResult().size() >0) {
-				response.setMessage("Retrieved records successfully");
+				response.setMessage("Operation successfully");
 			} else {
 				response.setMessage("No records found");
 			}
 			finalResultList.add(resultResponse);
 		} else {
 			response.setCode("400");
-			response.setMessage("Caught some error while retrieving record");
+			response.setMessage("Caught some error please contact administrator");
 		}
 		response.setStudentResult(finalResultList);
 		return response;

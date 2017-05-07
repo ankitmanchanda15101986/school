@@ -30,21 +30,39 @@ public class Attendance {
 	@Column(name="STATUS")
 	private String attendanceStatus;
 	
-	@Column(name="REMARKS")
-	private String remarks;
+	@Column(name="TEACHER_REMARKS")
+	private String teacherRemarks;
+	
+	@Column(name="PARENT_REMARKS")
+	private String parentRemarks;
+
 
 	/**
-	 * @return the remarks
+	 * @return the teacherRemarks
 	 */
-	public String getRemarks() {
-		return remarks;
+	public String getTeacherRemarks() {
+		return teacherRemarks;
 	}
 
 	/**
-	 * @param remarks the remarks to set
+	 * @param teacherRemarks the teacherRemarks to set
 	 */
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setTeacherRemarks(String teacherRemarks) {
+		this.teacherRemarks = teacherRemarks;
+	}
+
+	/**
+	 * @return the parentRemarks
+	 */
+	public String getParentRemarks() {
+		return parentRemarks;
+	}
+
+	/**
+	 * @param parentRemarks the parentRemarks to set
+	 */
+	public void setParentRemarks(String parentRemarks) {
+		this.parentRemarks = parentRemarks;
 	}
 
 	/**

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.school.model.ProfileResponse;
-import com.school.model.attendance.Attendance;
 import com.school.model.results.Result;
 import com.school.util.Fields;
 import com.school.util.GenericErrors;
@@ -22,7 +21,7 @@ import com.school.util.GenericErrors;
 @Component
 public class ValidateResult {
 
-	public ProfileResponse validate(Result result) {
+	public ProfileResponse validate(Result result, String operation) {
 		ProfileResponse response = new ProfileResponse();
 		List<GenericErrors> errorsList = new ArrayList<GenericErrors>();
 		GenericErrors errors = new GenericErrors();
@@ -31,20 +30,40 @@ public class ValidateResult {
 				errors .setFieldName(Fields.EnrollmentId.toString());
 				errors.setErrorMessage("Invalid Enrollment Id");
 				errorsList.add(errors);
+			}			
+			if(StringUtils.isEmpty(result.getSubjectCode()) && operation.equalsIgnoreCase("insert")) {
+				errors .setFieldName(Fields.SubjectCode.toString());
+				errors.setErrorMessage("Code is mandatory field");
+				errorsList.add(errors);
+			}
+			if(result.getMarks() == null && operation.equalsIgnoreCase("insert")) {
+				errors .setFieldName(Fields.Marks.toString());
+				errors.setErrorMessage("Marks is mandatory field");
+				errorsList.add(errors);
 			}
 			if(result.getExamType() == null) {
 				errors .setFieldName(Fields.ExamType.toString());
-				errors.setErrorMessage("Please select exam type");
+				errors.setErrorMessage("Exam type is mandatory field");
+				errorsList.add(errors);
+			}
+			if(result.getExamDate() == null && operation.equalsIgnoreCase("insert")) {
+				errors .setFieldName(Fields.ExamDate.toString());
+				errors.setErrorMessage("Exam Date is mandatory field");
+				errorsList.add(errors);
+			}
+			if(result.getStatus() == null && operation.equalsIgnoreCase("insert")) {
+				errors .setFieldName(Fields.Status.toString());
+				errors.setErrorMessage("Result Status is mandatory field");
 				errorsList.add(errors);
 			}
 			if(result.getType() == null) {
 				errors .setFieldName(Fields.ResultType.toString());
-				errors.setErrorMessage("Please select result type");
+				errors.setErrorMessage("Result type is mandatory field");
 				errorsList.add(errors);
 			}
 			if(StringUtils.isEmpty(result.getClassStandard())) {
 				errors .setFieldName(Fields.Class.toString());
-				errors.setErrorMessage("Please select class");
+				errors.setErrorMessage("Class is mandatory field");
 				errorsList.add(errors);
 			}
 		}

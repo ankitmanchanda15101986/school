@@ -26,10 +26,10 @@ public class Result {
 	private Integer enrollmentId;
 	
 	@Column(name="SUBJECT_CODE")
-	private int subjectCode;
+	private Integer subjectCode;
 	
 	@Column(name="MARKS")
-	private int marks;
+	private Integer marks;
 	
 	@Column(name="EXAM_TYPE")
 	private String examType;
@@ -77,28 +77,28 @@ public class Result {
 	/**
 	 * @return the subjectCode
 	 */
-	public int getSubjectCode() {
+	public Integer getSubjectCode() {
 		return subjectCode;
 	}
 
 	/**
 	 * @param subjectCode the subjectCode to set
 	 */
-	public void setSubjectCode(int subjectCode) {
+	public void setSubjectCode(Integer subjectCode) {
 		this.subjectCode = subjectCode;
 	}
 
 	/**
 	 * @return the marks
 	 */
-	public int getMarks() {
+	public Integer getMarks() {
 		return marks;
 	}
 
 	/**
 	 * @param marks the marks to set
 	 */
-	public void setMarks(int marks) {
+	public void setMarks(Integer marks) {
 		this.marks = marks;
 	}
 

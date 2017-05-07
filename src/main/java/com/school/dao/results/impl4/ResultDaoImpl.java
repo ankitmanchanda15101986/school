@@ -3,6 +3,7 @@
  */
 package com.school.dao.results.impl4;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +14,8 @@ import org.springframework.stereotype.Repository;
 import com.school.dao.results.ResultDao;
 import com.school.dao.results.crud.ResultCrudRepository;
 import com.school.dao.results.crud.SubjectsCrudRepository;
-import com.school.model.ProfileResponse;
 import com.school.model.results.Result;
 import com.school.model.results.Subjects;
-import com.school.util.results.ExamType;
-import com.school.util.results.ResultType;
 
 /**
  * @author Manchanda
@@ -54,6 +52,17 @@ public class ResultDaoImpl implements ResultDao {
 		List<Result> results = resultRepository.getResult(result.getEnrollmentId(), result.getExamType(), result.getType(), 
 				result.getClassStandard());
 		return results;
+	}
+
+
+	@Override
+	public List<Result> insertOrUpdateStudentResult(List<Result> resultRequest) throws Exception {
+		Iterable<Result> resultIterable = resultRepository.save(resultRequest);
+		List<Result> resultList = new ArrayList<Result>();
+		for (Result result : resultIterable) {
+			resultList.add(result);
+		}
+		return resultList;
 	}
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.school.model.ProfileResponse;
 import com.school.service.attendance.impl.AttendanceServiceImpl;
+import com.school.util.attendance.AttendanceType;
 
 /**
  * @author Manchanda
@@ -24,6 +25,13 @@ public class AttendanceController {
 	@Autowired
 	private AttendanceServiceImpl service;
 	
+	/**
+	 * Teacher + Parent
+	 * @param toDate
+	 * @param fromDate
+	 * @param enrollmentId
+	 * @return
+	 */
 	@RequestMapping(value="/retrieveAttendance", method=RequestMethod.GET)
 	public ProfileResponse getAttendanceBasedOnSearchCriteria(@RequestParam(name="toDate") Date toDate,
 			@RequestParam(name="fromDate") Date fromDate, @RequestParam(name="enrollmentId") int enrollmentId) {
@@ -33,6 +41,13 @@ public class AttendanceController {
 		
 	}
 	
+	/**
+	 * Teacher + Parent
+	 * @param year
+	 * @param month
+	 * @param enrollmentId
+	 * @return
+	 */
 	@RequestMapping(value="/retrieveAttendanceBasedOnMonth", method=RequestMethod.GET)
 	public ProfileResponse getAttendanceBasedOnMonth(@RequestParam(name="year") int year,
 			@RequestParam(name="month") int month, @RequestParam(name="enrollmentId") int enrollmentId) {
@@ -41,18 +56,58 @@ public class AttendanceController {
 		
 	}
 	
-	@RequestMapping(value="/markAttendance", method=RequestMethod.GET)
-	public ProfileResponse markAttendance(@RequestParam(name="enrollmentId") int enrollmentId,
+	/**
+	 * Teacher
+	 * @param enrollmentId
+	 * @param remarks
+	 * @return
+	 */
+	@RequestMapping(value="/markAttendance/teacher", method=RequestMethod.GET)
+	public ProfileResponse markAttendanceByTeacher(@RequestParam(name="enrollmentId") int enrollmentId,
 			@RequestParam(name="remarks") String remarks) {
-		ProfileResponse response= service.markAttendance(enrollmentId, remarks);
+		ProfileResponse response= service.markOrUpdateAttendanceRemark(enrollmentId,null, remarks,"",AttendanceType.NEW);
 		return response;
 		
 	}
 	
-	@RequestMapping(value="/updateAttendanceRemarks", method=RequestMethod.GET)
+	/**
+	 * Parent
+	 * @param enrollmentId
+	 * @param remarks
+	 * @return
+	 */
+	@RequestMapping(value="/markAttendance/parent", method=RequestMethod.GET)
+	public ProfileResponse markAttendanceByParent(@RequestParam(name="enrollmentId") int enrollmentId,
+			@RequestParam(name="Date") Date date, @RequestParam(name="remarks") String remarks) {
+		ProfileResponse response= service.markOrUpdateAttendanceRemark(enrollmentId, date ,"", remarks,AttendanceType.NEW);
+		return response;
+		
+	}
+	
+	/**
+	 * Teacher
+	 * @param enrollmentId
+	 * @param remarks
+	 * @return
+	 */
+	@RequestMapping(value="/updateRemarks/teacher", method=RequestMethod.GET)
 	public ProfileResponse updateAttendanceRemarks(@RequestParam(name="enrollmentId") int enrollmentId,
 			@RequestParam(name="Date") Date date, @RequestParam(name="remarks") String remarks) {
-		ProfileResponse response= service.updateAttendanceRemark(enrollmentId, date, remarks);
+		ProfileResponse response= service.markOrUpdateAttendanceRemark(enrollmentId, date, remarks, "", AttendanceType.UPDATE);
+		return response;
+		
+	}
+	
+	/**
+	 * Parent
+	 * @param enrollmentId
+	 * @param remarks
+	 * @return
+	 */
+	@RequestMapping(value="/updateRemarks/parents", method=RequestMethod.GET)
+	public ProfileResponse parentRemarks(@RequestParam(name="enrollmentId") int enrollmentId,
+			@RequestParam(name="Date") Date date, @RequestParam(name="remarks") String remarks) {
+		ProfileResponse response= service.markOrUpdateAttendanceRemark(enrollmentId, date, "" ,remarks, AttendanceType.UPDATE);
 		return response;
 		
 	}

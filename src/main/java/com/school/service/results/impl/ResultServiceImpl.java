@@ -12,11 +12,10 @@ import org.springframework.stereotype.Service;
 import com.school.dao.results.impl4.ResultDaoImpl;
 import com.school.model.ProfileResponse;
 import com.school.model.results.Result;
+import com.school.model.results.ResultRequest;
 import com.school.model.results.Subjects;
 import com.school.service.results.ResultService;
-import com.school.util.results.ExamType;
 import com.school.util.results.ResultHelper;
-import com.school.util.results.ResultType;
 import com.school.validate.results.ValidateResult;
 
 /**
@@ -54,7 +53,7 @@ public class ResultServiceImpl implements ResultService {
 		List<Result> resultList = null;
 		ProfileResponse response = null;
 		try {
-			response = validate.validate(result);
+			response = validate.validate(result, "get");
 			if(response != null && response.getErrors().size() ==0) {
 				resultList = dao.getStudentResult(result);
 			}
@@ -62,6 +61,35 @@ public class ResultServiceImpl implements ResultService {
 			e.printStackTrace();
 		}
 		response = helper.prepareFinalResult(resultList, getAllSubjects());
+		return response;
+	}
+
+	@Override
+	public ProfileResponse insertOrUpdateStudentResult(ResultRequest resultRequest) {
+		ProfileResponse response = new ProfileResponse();
+		List<Result> resultList = null;
+		boolean errorflag = false;
+		if(resultRequest != null) {
+			// Validation Request
+			for ( Result result : resultRequest.getResult()) {
+				response = validate.validate(result, "insert");
+				if(response!= null && !response.getErrors().isEmpty()) {
+					errorflag = true;
+					break;
+				}
+			}
+			if(!errorflag) {
+				try {
+					resultList = dao.insertOrUpdateStudentResult(resultRequest.getResult());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				response = helper.prepareFinalResult(resultList, getAllSubjects());
+			}
+		} else {
+			response.setCode("400");
+			response.setMessage("Invalid Request");
+		}
 		return response;
 	}
 

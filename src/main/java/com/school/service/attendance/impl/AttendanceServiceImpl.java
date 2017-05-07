@@ -12,7 +12,9 @@ import com.school.dao.attendance.impl.AttendanceDaoImpl;
 import com.school.model.ProfileResponse;
 import com.school.model.attendance.Attendance;
 import com.school.service.attendance.AttendanceService;
+import com.school.util.attendance.AttendanceBy;
 import com.school.util.attendance.AttendanceHelper;
+import com.school.util.attendance.AttendanceType;
 import com.school.validate.attendance.ValidateAttendance;
 
 /**
@@ -65,41 +67,24 @@ public class AttendanceServiceImpl implements AttendanceService {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			response = helper.convertResultToProfileResponseForAttendance(attendanceList, "mark");
+			response = helper.convertResultToProfileResponseForAttendance(attendanceList, "view");
 		}
 		return response;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.school.service.attendance.AttendanceService#markAttendance(int)
+	/**
+	 * 
 	 */
 	@Override
-	public ProfileResponse markAttendance(int enrollmentId, String remarks) {
-		Attendance attendance = helper.markAttendance(enrollmentId, remarks, null);
-		ProfileResponse response = validator.validate(attendance);
-		List<Attendance> attendanceList = null;
-		if(response != null  && response.getErrors()!= null && response.getErrors().size()==0) {
-			try {
-				attendanceList  = dao.markAttendance(attendance);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			response = helper.convertResultToProfileResponseForAttendance(attendanceList, "mark");
-		}
-		return response;
-	}
-
-	@Override
-	public ProfileResponse updateAttendanceRemark(int enrollmentId, Date date, String remarks) {
-		Attendance attendance = helper.markAttendance(enrollmentId, remarks, date);
+	public ProfileResponse markOrUpdateAttendanceRemark(int enrollmentId, Date date, String teacherRemarks, 
+			String parentsRemarks, AttendanceType type) {
+		Attendance attendance = helper.attendance(enrollmentId, teacherRemarks, parentsRemarks, date);
 		ProfileResponse response = validator.validate(attendance);
 		List<Attendance> attendanceList = null;
 		if(response != null  && response.getErrors()!= null && response.getErrors().size()==0) {
 			try {
 				attendanceList =  dao.markAttendance(attendance);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			response = helper.convertResultToProfileResponseForAttendance(attendanceList, "mark");

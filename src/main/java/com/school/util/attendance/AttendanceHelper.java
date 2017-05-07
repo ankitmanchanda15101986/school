@@ -19,7 +19,7 @@ import com.school.model.attendance.Attendance;
 @Component
 public class AttendanceHelper {
 	
-	public Attendance markAttendance(int enrollmentId, String remarks, Date date) {
+	public Attendance attendance(int enrollmentId, String teacherRemarks, String parentRemarks, Date date) {
 		Attendance attendance = new Attendance();
 		attendance.setEnrollmentId(enrollmentId);
 		if(date != null) {
@@ -28,7 +28,8 @@ public class AttendanceHelper {
 			attendance.setAttendanceDate(new Date());
 		}
 		attendance.setAttendanceStatus(AttendanceStatus.Absent.toString());
-		attendance.setRemarks(remarks);
+		attendance.setTeacherRemarks(teacherRemarks);
+		attendance.setParentRemarks(parentRemarks);
 		return attendance;
 	}
 	
